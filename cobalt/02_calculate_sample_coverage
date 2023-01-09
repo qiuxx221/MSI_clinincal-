@@ -1,14 +1,16 @@
-#!/bin/bash
-
-#SBATCH --time=12:00:00
+#!/bin/bash -l 
+#SBATCH --time=24:00:00
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --nodes=1
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=16
-#SBATCH --mem=240G
-#SBATCH --account=clinicalmdl
-#SBATCH --mail-user=smunro@umn.edu
-#SBATCH -p mdl2tb
+#SBATCH --ntasks-per-node=8
+#SBATCH --ntasks-per-core=1
+#SBATCH --mem=120G
+#SBATCH --account=yohes
+#SBATCH --mail-user=qiuxx221@umn.edu
+#SBATCH --partition=msismall 
+#SBATCH --job-name=cov_cnv
+#SBATCH --error=cov_cnv.err
+#SBATCH --output=cov_cnv.out
 
 cd /home/yohes/shared/ris/qiuxx221/cobalt/test
 BED=/home/clinicalmdl/shared/references/germline_aws_references/exons_MSOC_PMS2CNVspecific.bed
