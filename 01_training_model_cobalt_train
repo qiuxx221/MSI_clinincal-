@@ -1,0 +1,23 @@
+#!/bin/bash -l 
+#SBATCH --time=24:00:00
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=8
+#SBATCH --ntasks-per-core=1
+#SBATCH --mem=120G
+#SBATCH --account=yohes
+#SBATCH --mail-user=qiuxx221@umn.edu
+#SBATCH --partition=msismall 
+#SBATCH --job-name=train_model
+#SBATCH --error=train_model.err
+#SBATCH --output=train_model.out
+
+cd /home/yohes/shared/ris/qiuxx221/cobalt
+
+#BED=/home/clinicalmdl/shared/references/germline_aws_references/exons_MSOC_PMS2CNVspecific.bed
+#BAMS=$( ls /home/yohes/shared/germline_GATK4/CNV_files/pon49Alignments/*.bam )
+#echo $BAMS
+#covcounter --bed $BED --bams $BAMS --threads 16 > control_sample_coverages.bed 
+DEPTHSBED=/home/yohes/shared/germline_GATK4/cobalttest/control_sample_coverages.bed
+
+cobalt train --depths $DEPTHSBED -o 01092023_7_sample_pred.model
