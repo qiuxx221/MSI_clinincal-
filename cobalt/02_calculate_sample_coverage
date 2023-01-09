@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#SBATCH --time=12:00:00
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=240G
+#SBATCH --account=clinicalmdl
+#SBATCH --mail-user=smunro@umn.edu
+#SBATCH -p mdl2tb
+
+cd /home/yohes/shared/ris/qiuxx221/cobalt/test
+BED=/home/clinicalmdl/shared/references/germline_aws_references/exons_MSOC_PMS2CNVspecific.bed
+BAMS=$( ls /home/yohes/shared/germline_GATK4/projects/20-05335_30Sep2020_MSOC072_MDL5545_yqtest/data/msoc_dedup_reads.bam )
+echo $BAMS
+covcounter --bed $BED --bams $BAMS --threads 16 > 20-05335_30Sep2020_MSOC072_MDL5545_yqtest.bed 
