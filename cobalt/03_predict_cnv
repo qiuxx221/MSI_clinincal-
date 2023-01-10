@@ -32,8 +32,8 @@ cobalt predict -m 01092023_7_sample_pred.model -d $Sample_depth -o INV4_2Oct2019
 # generate cmds 
 while read p; 
 do
-  echo "cobalt predict -m 01092023_7_sample_pred.model -d "$p" -o "$p"_cnv.bed" 
-done < sample_bed_coverage.txt
+  echo "cobalt predict -m 01092023_7_sample_pred.model -d "$p" -o "$p"_new_bam_cnv.bed" 
+done < sample_bed_coverage.txt > 
 
 
 #!/bin/bash -l 
