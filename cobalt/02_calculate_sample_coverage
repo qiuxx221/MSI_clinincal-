@@ -23,5 +23,5 @@ covcounter --bed $BED --bams $BAMS --threads 16 > 20-05335_30Sep2020_MSOC072_MDL
 
 while read p; 
 do
-  echo "covcounter --bed /home/clinicalmdl/shared/references/germline_aws_references/exons_MSOC_PMS2CNVspecific.bed --bams /home/yohes/shared/germline_GATK4/projects/YQ_testing/"$p"/data/msoc_dedup_reads.bam --threads 8 > "$p"_yqtest.bed "
-done < sample_name.txt
+  echo "covcounter --bed /home/clinicalmdl/shared/references/germline_aws_references/exons_MSOC_PMS2CNVspecific.bed --bams /home/yohes/shared/germline_GATK4/projects/YQ_testing/"$p"/data/"$p".bam --threads 8 > "$p"_new_bam_yqtest.bed "
+done < sample_name.txt > calculate_coverage.txt
