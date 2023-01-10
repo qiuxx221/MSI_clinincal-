@@ -14,6 +14,14 @@
 
 cd /home/yohes/shared/ris/qiuxx221/cobalt/test
 BED=/home/clinicalmdl/shared/references/germline_aws_references/exons_MSOC_PMS2CNVspecific.bed
-BAMS=$( ls /home/yohes/shared/germline_GATK4/projects/20-05335_30Sep2020_MSOC072_MDL5545_yqtest/data/msoc_dedup_reads.bam )
+BAMS=$( ls /home/yohes/shared/germline_GATK4/projects/YQ_testing/*/data/msoc_dedup_reads.bam )
 echo $BAMS
 covcounter --bed $BED --bams $BAMS --threads 16 > 20-05335_30Sep2020_MSOC072_MDL5545_yqtest.bed 
+
+
+
+
+while read p; 
+do
+  echo "covcounter --bed /home/clinicalmdl/shared/references/germline_aws_references/exons_MSOC_PMS2CNVspecific.bed --bams /home/yohes/shared/germline_GATK4/projects/YQ_testing/"$p"/data/msoc_dedup_reads.bam --threads 8 > "$p"_yqtest.bed "
+done < sample_name.txt
