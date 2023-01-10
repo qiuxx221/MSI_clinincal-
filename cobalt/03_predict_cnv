@@ -24,3 +24,37 @@ cd /home/yohes/shared/ris/qiuxx221/cobalt
 #model_depth=/home/yohes/shared/germline_GATK4/cobalttest/control_sample_coverages.bed
 Sample_depth=/home/yohes/shared/germline_GATK4/projects/INV4_2Oct2019_MSOC014_MDL55455_yqtest/data/INV4_2Oct2019_MSOC014_MDL55455_yqtest.rawCoverage.bed
 cobalt predict -m 01092023_7_sample_pred.model -d $Sample_depth -o INV4_2Oct2019_MSOC014_MDL55455_cnv.bed
+
+
+
+
+
+# generate cmds 
+while read p; 
+do
+  echo "cobalt predict -m 01092023_7_sample_pred.model -d "$p" -o "$p"_cnv.bed" 
+done < sample_bed_coverage.txt
+
+
+#!/bin/bash -l 
+#SBATCH --time=2:00:00
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=56
+#SBATCH --ntasks-per-core=1
+#SBATCH --mem=120G
+#SBATCH --account=yohes
+#SBATCH --mail-user=qiuxx221@umn.edu
+#SBATCH --partition=msismall 
+#SBATCH --job-name=pre_cnv_all
+#SBATCH --error=pre_cnv_all.err
+#SBATCH --output=pre_cnv_all.out
+
+cd /home/yohes/shared/ris/qiuxx221/cobalt/
+#BED=/home/clinicalmdl/shared/references/germline_aws_references/exons_MSOC_PMS2CNVspecific.bed
+#BAMS=$( ls /home/yohes/shared/germline_GATK4/projects/20-05335_30Sep2020_MSOC072_MDL5545_yqtest/data/msoc_dedup_reads.bam )
+#echo $BAMS
+
+module load parallel/20190122
+
+parallel --tmpdir /scratch.global/qiuxx221/ --jobs 7 < sample_bed_coverage.txt
