@@ -1,0 +1,15 @@
+ls *_cnv.bed > all_7_cnv.bed
+
+module load bedtools 
+while read p; 
+do
+  echo "bedtools intersect -a /home/clinicalmdl/shared/references/germline_aws_references/exons_MSOC_PMS2CNVspecific.bed -b "$p" -wa -wb > "$p"_intersect " 
+done < all_7_cnv.bed > intersect_cmd.txt
+
+bash intersect_cmd.txt
+
+
+
+igv_checking 
+
+/home/yohes/shared/germline_GATK4/projects/YQ_testing/19-10204_26Nov2019_MSOC023_MDL55455_yqtest/data
