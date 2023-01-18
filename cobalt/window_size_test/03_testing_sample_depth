@@ -18,48 +18,53 @@ module load parallel/20190122
 ls /home/yohes/shared/germline_GATK4/projects/YQ_testing/*_yqtest/data/*_yqtest.bam > bam_files_list.txt
 
 # 40 bp window 
+BED=/home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_40bp.bed
 mkdir 40bp_window
 while read p; 
   do
-  echo "covcounter --bed $BED --bams $p --threads 16 > 40bp_window/"$p"_40bp_window_cov.bed"
+  echo "covcounter --bed $BED --bams $p --threads 16 > 40bp_window/$(echo "$p"| cut -d "/" -f 8)_40bp_window_cov.bed"
 done < bam_files_list.txt > sample_bed_coverage_40bp.txt
 
 parallel --tmpdir /scratch.global/qiuxx221/ --jobs 7 < sample_bed_coverage_40bp.txt
 
 # 60 bp window 
+BED=/home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_60bp.bed
 mkdir 60bp_window
 while read p; 
   do
-  echo "covcounter --bed $BED --bams $p --threads 16 > 60bp_window/"$p"_60bp_window_cov.bed"
+  echo "covcounter --bed $BED --bams $p --threads 16 > 60bp_window/$(echo "$p"| cut -d "/" -f 8)_60bp_window_cov.bed"
 done < bam_files_list.txt > sample_bed_coverage_60bp.txt
 
 parallel --tmpdir /scratch.global/qiuxx221/ --jobs 7 < sample_bed_coverage_60bp.txt
 
 # 80 bp window 
+BED=/home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_80bp.bed
 mkdir 80bp_window
 while read p; 
   do
-  echo "covcounter --bed $BED --bams $p --threads 16 > 80bp_window/"$p"_80bp_window_cov.bed"
+  echo "covcounter --bed $BED --bams $p --threads 16 > 80bp_window/$(echo "$p"| cut -d "/" -f 8)_80bp_window_cov.bed"
 done < bam_files_list.txt > sample_bed_coverage_80bp.txt
 
 parallel --tmpdir /scratch.global/qiuxx221/ --jobs 7 < sample_bed_coverage_80bp.txt
 
 
 # 100 bp window 
+BED=/home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_100bp.bed
 mkdir 100bp_window
 while read p; 
   do
-  echo "covcounter --bed $BED --bams $p --threads 16 > 100bp_window/"$p"_100bp_window_cov.bed"
+  echo "covcounter --bed $BED --bams $p --threads 16 > 100bp_window/$(echo "$p"| cut -d "/" -f 8)_100bp_window_cov.bed"
 done < bam_files_list.txt > sample_bed_coverage_100bp.txt
 
 parallel --tmpdir /scratch.global/qiuxx221/ --jobs 7 < sample_bed_coverage_100bp.txt
 
 
 # 120 bp window 
+BED=/home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_120bp.bed
 mkdir 120bp_window
 while read p; 
   do
-  echo "covcounter --bed $BED --bams $p --threads 16 > 120bp_window/"$p"_120bp_window_cov.bed"
+  echo "covcounter --bed $BED --bams $p --threads 16 > 120bp_window/$(echo "$p"| cut -d "/" -f 8)_120bp_window_cov.bed"
 done < bam_files_list.txt > sample_bed_coverage_120bp.txt
 
 parallel --tmpdir /scratch.global/qiuxx221/ --jobs 7 < sample_bed_coverage_120bp.txt
