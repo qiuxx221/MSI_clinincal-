@@ -1,0 +1,69 @@
+#!/bin/bash -l 
+#SBATCH --time=24:00:00
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=8
+#SBATCH --ntasks-per-core=1
+#SBATCH --mem=120G
+#SBATCH --account=yohes
+#SBATCH --mail-user=qiuxx221@umn.edu
+#SBATCH --partition=msismall 
+#SBATCH --job-name=cov_cnv
+#SBATCH --error=cov_cnv.err
+#SBATCH --output=cov_cnv.out
+
+cd /home/yohes/shared/ris/qiuxx221/window_testing/sample_depth
+module load parallel/20190122
+
+ls /home/yohes/shared/germline_GATK4/projects/YQ_testing/*_yqtest/data/*_yqtest.bam > bam_files_list.txt
+
+# 40 bp window 
+mkdir 40bp_window
+while read p; 
+  do
+  echo "covcounter --bed $BED --bams $p --threads 16 > 40bp_window/"$p"_40bp_window_cov.bed"
+done < bam_files_list.txt > sample_bed_coverage_40bp.txt
+
+parallel --tmpdir /scratch.global/qiuxx221/ --jobs 7 < sample_bed_coverage_40bp.txt
+
+# 60 bp window 
+mkdir 60bp_window
+while read p; 
+  do
+  echo "covcounter --bed $BED --bams $p --threads 16 > 60bp_window/"$p"_60bp_window_cov.bed"
+done < bam_files_list.txt > sample_bed_coverage_60bp.txt
+
+parallel --tmpdir /scratch.global/qiuxx221/ --jobs 7 < sample_bed_coverage_60bp.txt
+
+# 80 bp window 
+mkdir 80bp_window
+while read p; 
+  do
+  echo "covcounter --bed $BED --bams $p --threads 16 > 80bp_window/"$p"_80bp_window_cov.bed"
+done < bam_files_list.txt > sample_bed_coverage_80bp.txt
+
+parallel --tmpdir /scratch.global/qiuxx221/ --jobs 7 < sample_bed_coverage_80bp.txt
+
+
+# 100 bp window 
+mkdir 100bp_window
+while read p; 
+  do
+  echo "covcounter --bed $BED --bams $p --threads 16 > 100bp_window/"$p"_100bp_window_cov.bed"
+done < bam_files_list.txt > sample_bed_coverage_100bp.txt
+
+parallel --tmpdir /scratch.global/qiuxx221/ --jobs 7 < sample_bed_coverage_100bp.txt
+
+
+# 120 bp window 
+mkdir 120bp_window
+while read p; 
+  do
+  echo "covcounter --bed $BED --bams $p --threads 16 > 120bp_window/"$p"_120bp_window_cov.bed"
+done < bam_files_list.txt > sample_bed_coverage_120bp.txt
+
+parallel --tmpdir /scratch.global/qiuxx221/ --jobs 7 < sample_bed_coverage_120bp.txt
+
+
+
+
