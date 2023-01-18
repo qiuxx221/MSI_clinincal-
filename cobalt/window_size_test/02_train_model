@@ -1,1 +1,21 @@
+#!/bin/bash -l 
+#SBATCH --time=24:00:00
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=8
+#SBATCH --ntasks-per-core=1
+#SBATCH --mem=120G
+#SBATCH --account=yohes
+#SBATCH --mail-user=qiuxx221@umn.edu
+#SBATCH --partition=msismall 
+#SBATCH --job-name=train_model
+#SBATCH --error=train_model.err
+#SBATCH --output=train_model.out
 
+cd /home/yohes/shared/ris/qiuxx221/window_testing/train_model
+
+cobalt train --depths /home/yohes/shared/ris/qiuxx221/control_bed_depth/control_sample_coverages_windows_40bp.bed -o 20230118_window_40bp.model
+cobalt train --depths /home/yohes/shared/ris/qiuxx221/control_bed_depth/control_sample_coverages_windows_60bp.bed -o 20230118_window_60bp.model
+cobalt train --depths /home/yohes/shared/ris/qiuxx221/control_bed_depth/control_sample_coverages_windows_80bp.bed -o 20230118_window_80bp.model
+cobalt train --depths /home/yohes/shared/ris/qiuxx221/control_bed_depth/control_sample_coverages_windows_100bp.bed -o 20230118_window_100bp.model
+cobalt train --depths /home/yohes/shared/ris/qiuxx221/control_bed_depth/control_sample_coverages_windows_120bp.bed -o 20230118_window_120bp.model
