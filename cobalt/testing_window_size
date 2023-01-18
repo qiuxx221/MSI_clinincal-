@@ -1,0 +1,33 @@
+#!/bin/bash -l 
+#SBATCH --time=24:00:00
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=8
+#SBATCH --ntasks-per-core=1
+#SBATCH --mem=120G
+#SBATCH --account=yohes
+#SBATCH --mail-user=qiuxx221@umn.edu
+#SBATCH --partition=msismall 
+#SBATCH --job-name=calculate_window_cov
+#SBATCH --error=calculate_window_cov.err
+#SBATCH --output=calculate_window_cov.out
+
+cd /home/yohes/shared/ris/qiuxx221/window_testing
+
+module load bedtools
+BED=/home/clinicalmdl/shared/references/germline_aws_references/exons_MSOC_PMS2CNVspecific.bed
+# use bedtools to make a second 40,60,80,100,120 bp window bed file. Note that thisis not exactly like CNV-RF because in their approach they added bases to each end of an exon to make it divisible by 60 bp
+
+bedtools makewindows -w 40 -b $BED -i src > window_size/window_40bp.bed #where $BED here is the exons_MSOC_PMS2CNVspecific.bed
+bedtools makewindows -w 60 -b $BED -i src > window_size/window_60bp.bed #where $BED here is the exons_MSOC_PMS2CNVspecific.bed
+bedtools makewindows -w 80 -b $BED -i src > window_size/window_80bp.bed #where $BED here is the exons_MSOC_PMS2CNVspecific.bed
+bedtools makewindows -w 100 -b $BED -i src > window_size/window_100bp.bed #where $BED here is the exons_MSOC_PMS2CNVspecific.bed
+bedtools makewindows -w 120 -b $BED -i src > window_size/window_120bp.bed #where $BED here is the exons_MSOC_PMS2CNVspecific.bed
+
+BAMS=$( ls /home/yohes/shared/germline_GATK4/CNV_files/pon49Alignments/*.bam )
+echo $BAMS
+covcounter --bed window_size/window_40bp.bed --bams $BAMS --threads 16 > control_bed_depth/control_sample_coverages_windows_40bp.bed
+covcounter --bed window_size/window_60bp.bed --bams $BAMS --threads 16 > control_bed_depth/control_sample_coverages_windows_60bp.bed
+covcounter --bed window_size/window_80bp.bed --bams $BAMS --threads 16 > control_bed_depth/control_sample_coverages_windows_80bp.bed
+covcounter --bed window_size/window_100bp.bed --bams $BAMS --threads 16 > control_bed_depth/control_sample_coverages_windows_100bp.bed
+covcounter --bed window_sizewindow_120bp.bed --bams $BAMS --threads 16 > control_bed_depth/control_sample_coverages_windows_120bp.bed
