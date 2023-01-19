@@ -14,8 +14,8 @@
 
 cd /home/yohes/shared/ris/qiuxx221/window_testing/train_model
 
-cobalt train --depths /home/yohes/shared/ris/qiuxx221/control_bed_depth/control_sample_coverages_windows_40bp.bed -o 20230118_window_40bp.model
-cobalt train --depths /home/yohes/shared/ris/qiuxx221/control_bed_depth/control_sample_coverages_windows_60bp.bed -o 20230118_window_60bp.model
-cobalt train --depths /home/yohes/shared/ris/qiuxx221/control_bed_depth/control_sample_coverages_windows_80bp.bed -o 20230118_window_80bp.model
-cobalt train --depths /home/yohes/shared/ris/qiuxx221/control_bed_depth/control_sample_coverages_windows_100bp.bed -o 20230118_window_100bp.model
-cobalt train --depths /home/yohes/shared/ris/qiuxx221/control_bed_depth/control_sample_coverages_windows_120bp.bed -o 20230118_window_120bp.model
+cobalt train --depths /home/yohes/shared/ris/qiuxx221/window_testing/control_bed_depth/control_sample_coverages_windows_40bp.bed -o 20230118_window_40bp.model
+cobalt train --depths /home/yohes/shared/ris/qiuxx221/window_testing/control_bed_depth/control_sample_coverages_windows_60bp.bed -o 20230118_window_60bp.model
+cobalt train --depths /home/yohes/shared/ris/qiuxx221/window_testing/control_bed_depth/control_sample_coverages_windows_80bp.bed -o 20230118_window_80bp.model
+cobalt train --depths /home/yohes/shared/ris/qiuxx221/window_testing/control_bed_depth/control_sample_coverages_windows_100bp.bed -o 20230118_window_100bp.model
+cobalt train --depths /home/yohes/shared/ris/qiuxx221/window_testing/control_bed_depth/control_sample_coverages_windows_120bp.bed -o 20230118_window_120bp.model
