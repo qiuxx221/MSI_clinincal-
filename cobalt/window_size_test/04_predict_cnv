@@ -1,0 +1,87 @@
+#!/bin/bash -l 
+#SBATCH --time=24:00:00
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=8
+#SBATCH --ntasks-per-core=1
+#SBATCH --mem=120G
+#SBATCH --account=yohes
+#SBATCH --mail-user=qiuxx221@umn.edu
+#SBATCH --partition=msismall 
+#SBATCH --job-name=predict_cnv
+#SBATCH --error=predict_cnv.err
+#SBATCH --output=predict_cnv.out
+
+module load bedtools 
+module load parallel/20190122
+
+cd /home/yohes/shared/ris/qiuxx221/window_testing/
+mkdir cnv_prediction
+
+# 40 bp window sample depth
+mkdir cnv_prediction/40bp_window
+mkdir cnv_prediction/40bp_window/intersect
+cd cnv_prediction/40bp_window
+ls /home/yohes/shared/ris/qiuxx221/window_testing/sample_depth/40bp_window/*_40bp_window_cov.bed > bed_files_list.txt
+while read p; 
+do
+  echo "cobalt predict -m /home/yohes/shared/ris/qiuxx221/window_testing/train_model/20230118_window_40bp.model -d "$p" -o "$(echo "$p"| cut -d "/" -f 10 | cut -d "_" -f 1-6)"_cnv.bed"
+  echo "bedtools intersect -a "$(echo "$p"| cut -d "/" -f 10 | cut -d "_" -f 1-6)"_cnv.bed -b /home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_40bp.bed -wa -wb > intersect/"$(echo "$p"| cut -d "/" -f 10 | cut -d "_" -f 1-6)"_intersected.txt"
+done < bed_files_list.txt > 40_bp_cnv_predict_intersect.txt
+
+parallel --tmpdir /scratch.global/qiuxx221/ --jobs 7 < 40_bp_cnv_predict_intersect.txt
+
+
+# 60 bp window sample depth
+mkdir cnv_prediction/60bp_window
+cd cnv_prediction/60bp_window
+ls /home/yohes/shared/ris/qiuxx221/window_testing/sample_depth/60bp_window/*_60bp_window_cov.bed > bed_files_list.txt
+
+while read p; 
+do
+  echo "cobalt predict -m /home/yohes/shared/ris/qiuxx221/window_testing/train_model/20230118_window_60bp.model -d "$p" -o "$(echo "$p"| cut -d "/" -f 10 | cut -d "_" -f 1-6)"_cnv.bed"
+  echo "bedtools intersect -a "$(echo "$p"| cut -d "/" -f 10 | cut -d "_" -f 1-6)"_cnv.bed -b /home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_60bp.bed -wa -wb > intersect/"$(echo "$p"| cut -d "/" -f 10 | cut -d "_" -f 1-6)"_intersected.txt"
+done < bed_files_list.txt > 60_bp_cnv_predict_intersect.txt
+
+parallel --tmpdir /scratch.global/qiuxx221/ --jobs 7 < 60_bp_cnv_predict_intersect.txt
+
+# 80 bp window sample depth
+mkdir cnv_prediction/80bp_window
+cd cnv_prediction/80bp_window
+ls /home/yohes/shared/ris/qiuxx221/window_testing/sample_depth/80bp_window/*_80bp_window_cov.bed > bed_files_list.txt
+
+while read p; 
+do
+  echo "cobalt predict -m /home/yohes/shared/ris/qiuxx221/window_testing/train_model/20230118_window_80bp.model -d "$p" -o "$(echo "$p"| cut -d "/" -f 10 | cut -d "_" -f 1-6)"_cnv.bed"
+  echo "bedtools intersect -a "$(echo "$p"| cut -d "/" -f 10 | cut -d "_" -f 1-6)"_cnv.bed -b /home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_80bp.bed -wa -wb > intersect/"$(echo "$p"| cut -d "/" -f 10 | cut -d "_" -f 1-6)"_intersected.txt"
+done < bed_files_list.txt > 80_bp_cnv_predict_intersect.txt
+
+parallel --tmpdir /scratch.global/qiuxx221/ --jobs 7 < 80_bp_cnv_predict_intersect.txt
+
+# 100 bp window sample depth
+mkdir cnv_prediction/100bp_window
+cd cnv_prediction/100bp_window
+ls /home/yohes/shared/ris/qiuxx221/window_testing/sample_depth/100bp_window/*_100bp_window_cov.bed > bed_files_list.txt
+
+while read p; 
+do
+  echo "cobalt predict -m /home/yohes/shared/ris/qiuxx221/window_testing/train_model/20230118_window_100bp.model -d "$p" -o "$(echo "$p"| cut -d "/" -f 10 | cut -d "_" -f 1-6)"_cnv.bed"
+  echo "bedtools intersect -a "$(echo "$p"| cut -d "/" -f 10 | cut -d "_" -f 1-6)"_cnv.bed -b /home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_100bp.bed -wa -wb > intersect/"$(echo "$p"| cut -d "/" -f 10 | cut -d "_" -f 1-6)"_intersected.txt"
+done < bed_files_list.txt > 100_bp_cnv_predict_intersect.txt
+
+parallel --tmpdir /scratch.global/qiuxx221/ --jobs 7 < 100_bp_cnv_predict_intersect.txt
+
+# 120 bp window sample depth
+mkdir cnv_prediction/120bp_window
+cd cnv_prediction/120bp_window
+ls /home/yohes/shared/ris/qiuxx221/window_testing/sample_depth/120bp_window/*_120bp_window_cov.bed > bed_files_list.txt
+
+while read p; 
+do
+  echo "cobalt predict -m /home/yohes/shared/ris/qiuxx221/window_testing/train_model/20230118_window_120bp.model -d "$p" -o "$(echo "$p"| cut -d "/" -f 10 | cut -d "_" -f 1-6)"_cnv.bed"
+  echo "bedtools intersect -a "$(echo "$p"| cut -d "/" -f 10 | cut -d "_" -f 1-6)"_cnv.bed -b /home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_120bp.bed -wa -wb > intersect/"$(echo "$p"| cut -d "/" -f 10 | cut -d "_" -f 1-6)"_intersected.txt"
+done < bed_files_list.txt > 120_bp_cnv_predict_intersect.txt
+
+parallel --tmpdir /scratch.global/qiuxx221/ --jobs 7 < 120_bp_cnv_predict_intersect.txt120
+
+
