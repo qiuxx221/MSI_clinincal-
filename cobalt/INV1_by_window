@@ -34,3 +34,29 @@ covcounter --bed $BED --bams /home/yohes/shared/germline_GATK4/projects/INV1_2Oc
 # 120 bp window 
 BED=/home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_120bp.bed
 covcounter --bed $BED --bams /home/yohes/shared/germline_GATK4/projects/INV1_2Oct2019_MSOC014_MDL55455_yqtest/data/INV1_2Oct2019_MSOC014_MDL55455_yqtest.bam --threads 16 > INV1/INV1_2Oct2019_MSOC014_MDL55455_120bp_window_cov.bed
+
+
+
+
+
+#######predict 
+
+module load bedtools 
+# 40 bp cnv 
+cobalt predict -m /home/yohes/shared/ris/qiuxx221/window_testing/train_model/20230118_window_40bp.model -d INV1_2Oct2019_MSOC014_MDL55455_40bp_window_cov.bed -o INV1_2Oct2019_MSOC014_MDL55455_40bp_window_cnv.bed; bedtools intersect -a INV1_2Oct2019_MSOC014_MDL55455_40bp_window_cnv.bed -b /home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_40bp.bed -wa -wb > intersect/INV1_2Oct2019_MSOC014_MDL55455_40bp_window_intersected.txt
+cobalt predict -m /home/yohes/shared/ris/qiuxx221/window_testing/train_model/20230118_window_40bp.model -d INV1_2Oct2019_MSOC014_MDL55455_40bp_window_cov.bed -o INV1_2Oct2019_MSOC014_MDL55455_40bp_window_cnv.bed; bedtools intersect -a INV1_2Oct2019_MSOC014_MDL55455_40bp_window_cnv.bed -b /home/yohes/shared/ris/qiuxx221/window_testing/all_genes_zoom_bed.txt -wa -wb > intersect/INV1_2Oct2019_MSOC014_MDL55455_40bp_window_intersected_zoomed.txt
+# 60 bp cnv 
+cobalt predict -m /home/yohes/shared/ris/qiuxx221/window_testing/train_model/20230118_window_60bp.model -d INV1_2Oct2019_MSOC014_MDL55455_60bp_window_cov.bed -o INV1_2Oct2019_MSOC014_MDL55455_60bp_window_cnv.bed; bedtools intersect -a INV1_2Oct2019_MSOC014_MDL55455_60bp_window_cnv.bed -b /home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_60bp.bed -wa -wb > intersect/INV1_2Oct2019_MSOC014_MDL55455_60bp_window_intersected.txt
+cobalt predict -m /home/yohes/shared/ris/qiuxx221/window_testing/train_model/20230118_window_60bp.model -d INV1_2Oct2019_MSOC014_MDL55455_60bp_window_cov.bed -o INV1_2Oct2019_MSOC014_MDL55455_60bp_window_cnv.bed; bedtools intersect -a INV1_2Oct2019_MSOC014_MDL55455_60bp_window_cnv.bed -b /home/yohes/shared/ris/qiuxx221/window_testing/all_genes_zoom_bed.txt -wa -wb > intersect/INV1_2Oct2019_MSOC014_MDL55455_60bp_window_intersected_zoomed.txt
+# 80 bp cnv
+cobalt predict -m /home/yohes/shared/ris/qiuxx221/window_testing/train_model/20230118_window_80bp.model -d INV1_2Oct2019_MSOC014_MDL55455_80bp_window_cov.bed -o INV1_2Oct2019_MSOC014_MDL55455_80bp_window_cnv.bed; bedtools intersect -a INV1_2Oct2019_MSOC014_MDL55455_80bp_window_cnv.bed -b /home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_80bp.bed -wa -wb > intersect/INV1_2Oct2019_MSOC014_MDL55455_80bp_window_intersected.txt
+cobalt predict -m /home/yohes/shared/ris/qiuxx221/window_testing/train_model/20230118_window_80bp.model -d INV1_2Oct2019_MSOC014_MDL55455_80bp_window_cov.bed -o INV1_2Oct2019_MSOC014_MDL55455_80bp_window_cnv.bed; bedtools intersect -a INV1_2Oct2019_MSOC014_MDL55455_80bp_window_cnv.bed -b /home/yohes/shared/ris/qiuxx221/window_testing/all_genes_zoom_bed.txt -wa -wb > intersect/INV1_2Oct2019_MSOC014_MDL55455_80bp_window_intersected_zoomed.txt
+# 100 bp cnv 
+cobalt predict -m /home/yohes/shared/ris/qiuxx221/window_testing/train_model/20230118_window_100bp.model -d INV1_2Oct2019_MSOC014_MDL55455_100bp_window_cov.bed -o INV1_2Oct2019_MSOC014_MDL55455_100bp_window_cnv.bed; bedtools intersect -a INV1_2Oct2019_MSOC014_MDL55455_100bp_window_cnv.bed -b /home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_100bp.bed -wa -wb > intersect/INV1_2Oct2019_MSOC014_MDL55455_100bp_window_intersected.txt
+cobalt predict -m /home/yohes/shared/ris/qiuxx221/window_testing/train_model/20230118_window_100bp.model -d INV1_2Oct2019_MSOC014_MDL55455_100bp_window_cov.bed -o INV1_2Oct2019_MSOC014_MDL55455_100bp_window_cnv.bed; bedtools intersect -a INV1_2Oct2019_MSOC014_MDL55455_100bp_window_cnv.bed -b /home/yohes/shared/ris/qiuxx221/window_testing/all_genes_zoom_bed.txt -wa -wb > intersect/INV1_2Oct2019_MSOC014_MDL55455_100bp_window_intersected_zoomed.txt
+# 120 bp cnv 
+cobalt predict -m /home/yohes/shared/ris/qiuxx221/window_testing/train_model/20230118_window_120bp.model -d INV1_2Oct2019_MSOC014_MDL55455_120bp_window_cov.bed -o INV1_2Oct2019_MSOC014_MDL55455_120bp_window_cnv.bed; bedtools intersect -a INV1_2Oct2019_MSOC014_MDL55455_120bp_window_cnv.bed -b /home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_120bp.bed -wa -wb > intersect/INV1_2Oct2019_MSOC014_MDL55455_120bp_window_intersected.txt
+cobalt predict -m /home/yohes/shared/ris/qiuxx221/window_testing/train_model/20230118_window_120bp.model -d INV1_2Oct2019_MSOC014_MDL55455_120bp_window_cov.bed -o INV1_2Oct2019_MSOC014_MDL55455_120bp_window_cnv.bed; bedtools intersect -a INV1_2Oct2019_MSOC014_MDL55455_120bp_window_cnv.bed -b /home/yohes/shared/ris/qiuxx221/window_testing/all_genes_zoom_bed.txt -wa -wb > intersect/INV1_2Oct2019_MSOC014_MDL55455_120bp_window_intersected_zoomed.txt
+
+
+
