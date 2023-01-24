@@ -1,0 +1,39 @@
+#!/bin/bash -l 
+#SBATCH --time=24:00:00
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=8
+#SBATCH --ntasks-per-core=1
+#SBATCH --mem=120G
+#SBATCH --account=yohes
+#SBATCH --mail-user=qiuxx221@umn.edu
+#SBATCH --partition=msismall 
+#SBATCH --job-name=cov_cnv
+#SBATCH --error=cov_cnv.err
+#SBATCH --output=cov_cnv.out
+
+cd /home/yohes/shared/ris/qiuxx221/window_testing/
+module load parallel/20190122
+
+ls /home/yohes/shared/germline_GATK4/projects/INV1_2Oct2019_MSOC014_MDL55455_yqtest/*_yqtest.bam > bam_files_list.txt
+
+# 40 bp window 
+mkdir INV1
+BED=/home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_40bp.bed
+covcounter --bed $BED --bams $p --threads 16 > INV1/$(echo "$p"| cut -d "/" -f 8)_40bp_window_cov.bed"
+
+# 60 bp window 
+BED=/home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_60bp.bed
+covcounter --bed $BED --bams $p --threads 16 > INV1/$(echo "$p"| cut -d "/" -f 8)_60bp_window_cov.bed"
+
+# 80 bp window 
+BED=/home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_80bp.bed
+covcounter --bed $BED --bams $p --threads 16 > INV1/$(echo "$p"| cut -d "/" -f 8)_80bp_window_cov.bed"
+
+# 100 bp window 
+BED=/home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_100bp.bed
+covcounter --bed $BED --bams $p --threads 16 > INV1/$(echo "$p"| cut -d "/" -f 8)_100bp_window_cov.bed"
+
+# 120 bp window 
+BED=/home/yohes/shared/ris/qiuxx221/window_testing/window_size/window_120bp.bed
+covcounter --bed $BED --bams $p --threads 16 > INV1/$(echo "$p"| cut -d "/" -f 8)_120bp_window_cov.bed"
