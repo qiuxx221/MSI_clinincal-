@@ -1,0 +1,85 @@
+# filter probablity and get all the variant calls 
+
+rename '_intersected.txt' _40bp_intersected.txt *.txt
+rename '_40bp_40bp_intersected.txt' _40bp_intersected.txt *.txt
+
+
+rename '_intersected.txt' _60bp_intersected.txt *.txt
+rename '_60bp_60bp_intersected.txt' _60bp_intersected.txt *.txt
+
+
+rename '_intersected.txt' _80bp_intersected.txt *.txt
+rename '_80bp_80bp_intersected.txt' _80bp_intersected.txt *.txt
+
+rename '_intersected.txt' _100bp_intersected.txt *.txt
+rename '_100bp_100bp_intersected.txt' _100bp_intersected.txt *.txt
+
+
+rename '_intersected.txt' _120bp_intersected.txt *.txt
+rename '_120bp_120bp_intersected.txt' _120bp_intersected.txt *.txt
+
+
+
+# select information column and prepare the file to build QC matrix
+rm /home/yohes/shared/ris/qiuxx221/67_pos/cnv_prediction/*window/intersect/*.bed
+for i in /home/yohes/shared/ris/qiuxx221/67_pos/cnv_prediction/*window/intersect/*_intersected.txt; do
+  cat $i  | cut -f 10,11,5 > "$i".bed
+done
+mv /home/yohes/shared/ris/qiuxx221/67_pos/cnv_prediction/*window/intersect/*.bed QC/base_file
+
+cd /home/yohes/shared/ris/qiuxx221/67_pos/cnv_prediction/QC/base_file
+# file 09-01706_15Dec2021_MSOC138 has issues from the bam file 
+
+rm 09-01706_15Dec2021_MSOC138*
+
+
+### because the file name length varies, window size can't be accurately added in, so have to do window by window each time instead
+#for i in *.bed; do
+#   echo "$i"
+#    id=$(echo "$i" | cut -d'.' -f1 | cut -d "_" -f -1,2,3,4,6)
+#    window=$(echo "$i" | cut -d'.' -f1 | cut -d "_" -f 6)
+#    echo $id
+#    echo $window
+#    cat $i | sed "s/$/\t$id/" | sed "s/$/\t$window/" |sed "1iGene\tVariant\tSample\tWindow" > $(basename "$i")_fmt_col_name.bed
+#done
+###
+
+for i in *.bed; do
+    echo "$i"
+    id=$(echo "$i" | cut -d'.' -f1)
+    echo $id
+    cat $i | sed "s/$/\t$id/" | sed "1iProb\tGene\tVariant\tSample" > $(basename "$i")_fmt_col_name.bed
+done
+
+mv *40bp_intersected.txt.bed_fmt_col_name.bed 40bp/
+mv *60bp_intersected.txt.bed_fmt_col_name.bed 60bp/
+mv *80bp_intersected.txt.bed_fmt_col_name.bed 80bp/
+mv *100bp_intersected.txt.bed_fmt_col_name.bed 100bp/
+mv *120bp_intersected.txt.bed_fmt_col_name.bed 120bp/
+
+
+cd 100bp
+cat *.bed > meta_matrix_100bp.txt
+rm *.bed
+cd ..
+
+cd 120bp
+cat *.bed > meta_matrix_120bp.txt
+rm *.bed
+cd ..
+
+cd 80bp
+cat *.bed > meta_matrix_80bp.txt
+rm *.bed
+cd ..
+cd 60bp
+cat *.bed > meta_matrix_60bp.txt
+rm *.bed
+cd ..
+
+cd 40bp
+cat *.bed > meta_matrix_40bp.txt
+rm *.bed
+cd ..
+
+rm *.bed
