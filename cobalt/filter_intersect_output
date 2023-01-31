@@ -23,7 +23,7 @@ rename '_120bp_120bp_intersected.txt' _120bp_intersected.txt *.txt
 # select information column and prepare the file to build QC matrix
 rm /home/yohes/shared/ris/qiuxx221/67_pos/cnv_prediction/*window/intersect/*.bed
 for i in /home/yohes/shared/ris/qiuxx221/67_pos/cnv_prediction/*window/intersect/*_intersected.txt; do
-  cat $i  | cut -f 10,11,5,4 > "$i".bed
+  cat $i  | cut -f 10,11,5,4,6 > "$i".bed
 done
 mv /home/yohes/shared/ris/qiuxx221/67_pos/cnv_prediction/*window/intersect/*.bed QC/base_file
 
@@ -48,7 +48,7 @@ for i in *.bed; do
     echo "$i"
     id=$(echo "$i" | cut -d'.' -f1)
     echo $id
-    cat $i | sed "s/$/\t$id/" | sed "1iCNV\tProb\tGene\tVariant\tSample" > $(basename "$i")_fmt_col_name.bed
+    cat $i | sed "s/$/\t$id/" | sed "1iCNV\tProb\tTarget\tGene\tVariant\tSample" > $(basename "$i")_fmt_col_name.bed
 done
 
 mv *40bp_intersected.txt.bed_fmt_col_name.bed 40bp/
